@@ -488,6 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355dc1e14057a8f47ac07eeec217f7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panelFadeInDuration: 0.3
   itemInDuration: 0.6
   itemGrowDuration: 0.4
   blackDuration: 0.2
@@ -496,7 +497,7 @@ MonoBehaviour:
   item: {fileID: 733162663}
   itemImage: {fileID: 733162666}
   panel: {fileID: 142988308}
-  panelImage: {fileID: 0}
+  panelImage: {fileID: 142988310}
 --- !u!4 &373521581
 Transform:
   m_ObjectHideFlags: 0

@@ -23,7 +23,6 @@ public class ItemAnim : MonoBehaviour
         panelImage = panel.GetComponent<Image>();
         originalScale = item.transform.localScale;
 
-
         StartCoroutine(CharacterReveal());
     }
 
@@ -34,42 +33,46 @@ public class ItemAnim : MonoBehaviour
     }
     private IEnumerator PanelFadeIn()
     {
+        panel.SetActive(true);
+        Color panelOpaque = panelImage.color;
+        panelImage.color = Transparent(panelImage.color);
         float timer = 0;
         float startTime = Time.time;
+
         while (timer < panelFadeInDuration)
         {
             TimerPassTime(ref timer, ref startTime);
+            panelImage.color = Color.Lerp(panelImage.color, panelOpaque, timer / itemInDuration);
+            yield return null;
         }
-        yield break;
     }
     private IEnumerator ItemAnimation()
     {
+        item.SetActive(true);
         SetBlackColor(itemImage);
 
         item.transform.localScale *= initialScaleMultiplier;
         float timer = 0;
-        float prevTime = Time.time;
-        Color transparent = panelImage.color - new Color(0, 0, 0, 1);
-        Color semiTransparent = panelImage.color - new Color(0, 0, 0, 0.20f);
+        float startTime = Time.time;
+
         while (timer < itemInDuration)
         {
-            TimerPassTime(ref timer, ref prevTime);
+            TimerPassTime(ref timer, ref startTime);
             item.transform.localScale = Vector3.Lerp(item.transform.localScale, originalScale, timer / itemInDuration);
-            panelImage.color = Color.Lerp(panelImage.color, transparent, timer / itemInDuration);
+            panelImage.color = Color.Lerp(panelImage.color, Transparent(panelImage.color), timer / itemInDuration);
             yield return null;
         }
 
         timer = 0;
-        prevTime = Time.time;
-
+        startTime = Time.time;
         while (timer < itemGrowDuration)
         {
-            TimerPassTime(ref timer, ref prevTime);
+            TimerPassTime(ref timer, ref startTime);
             item.transform.localScale = Vector3.Lerp(item.transform.localScale, originalScale * finalScaleMultiplier, timer / itemGrowDuration);
             if (timer / itemGrowDuration < 0.5f)
-                panelImage.color = Color.Lerp(panelImage.color, semiTransparent, timer / itemGrowDuration);
+                panelImage.color = Color.Lerp(panelImage.color, SemiTransparent(panelImage.color, 0.2f), timer / itemGrowDuration);
             else
-                panelImage.color = Color.Lerp(panelImage.color, transparent, timer / (itemGrowDuration / 2));
+                panelImage.color = Color.Lerp(panelImage.color, Transparent(panelImage.color), timer / (itemGrowDuration / 2));
 
             itemImage.color = Color.Lerp(Color.black, Color.white, timer / itemGrowDuration);
             yield return null;
@@ -77,12 +80,12 @@ public class ItemAnim : MonoBehaviour
         SetWhiteColor(itemImage);
     }
 
+    #region Utils
     private static void TimerPassTime(ref float timer, ref float prevTime)
     {
         timer += Time.time - prevTime;
         prevTime = Time.time;
     }
-
     private void SetBlackColor(Image image)
     {
         image.color = Color.black;
@@ -91,4 +94,17 @@ public class ItemAnim : MonoBehaviour
     {
         image.color = Color.white;
     }
+    private Color Transparent(Color original)
+    {
+        return original - new Color(0, 0, 0, original.a);
+    }
+    private Color SemiTransparent(Color original, float amount)
+    {
+        return Transparent(original) + new Color(0, 0, 0, amount);
+    }
+    private Color Opaque(Color original)
+    {
+        return original + new Color(0, 0, 0, 1f - original.a);
+    }
+    #endregion
 }
