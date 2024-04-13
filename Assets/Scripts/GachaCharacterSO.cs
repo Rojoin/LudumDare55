@@ -6,6 +6,14 @@ public class GachaCharacterSO : ScriptableObject
 {
     public string characterName;
     public string description;
-    public Image image;
+    public Sprite image;
     public Rarity rarity;
+    public float cumulativePercentage;
+    public int chancePercentage
+    {
+        get
+        {
+            return (int)rarity;
+        }
+    }
 }
