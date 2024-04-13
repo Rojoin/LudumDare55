@@ -119,6 +119,12 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
                 _as.maxDistance = sound.maxDistance;
 
                 _as.loop = sound.loop;
+
+                if (sound.type == SoundType.SFX && !(audioSourcesList.Contains(_as)))
+                {
+                    audioSourcesList.Add(_as);
+                    Debug.Log("Sound Adds Succes");
+                }
                 return;
             }
         }
@@ -129,12 +135,22 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     {
         for (int i = 0; i < soundList.Length; i++)
         {
-            if (soundList[0].type == SoundType.SFX) soundList[0].volume = newVol;
+            if (soundList[i].type == SoundType.SFX) soundList[i].volume = newVol;
+        }
+
+        for (int i = 0; i < audioSourcesList.Count; i++)
+        {
+            audioSourcesList[i].volume = newVol;
         }
     }
-    public void ChangeGeneralVolume(float newVol)
+    public void ChangeMusicVolume(float newVol)
     {
         musicMenu.volume = newVol;
         inGameMusic.volume = newVol;
+    }
+    public void ChangeGeneralVolume(float newVol)
+    {
+        ChangeVolumeSFX(newVol);
+        ChangeMusicVolume(newVol);
     }
 }

@@ -8,18 +8,18 @@ public class SoundSO : ScriptableObject
     public AudioClip clip;
 
     [Range(0f, 256f)]
-    public int priority;
+    public int priority = 128;
     [Range(-3f, 3f)]
-    public float pitch;
+    public float pitch = 1;
     [Range(0f, 1f)]
-    public float volume;
+    public float volume = 1;
     [Range(0f, 1f)]
     public float spatialBlend;
 
-    public float minDistance;
-    public float maxDistance;
+    public float minDistance = 0.5f;
+    public float maxDistance = 3.0f;
 
     public bool loop;
 
-    public SoundType type;
+    public SoundType type = SoundType.SFX;
 }
