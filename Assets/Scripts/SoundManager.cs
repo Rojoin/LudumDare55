@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,32 +7,13 @@ public enum SoundType
     SFX
 }
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviourSingleton<SoundManager>
 {
-    static SoundManager _instance;
-
     [SerializeField] SoundSO[] soundList;
     [SerializeField] AudioSource musicMenu;
     [SerializeField] AudioSource inGameMusic;
     [SerializeField] AudioSource battleMusic;
     [SerializeField] List<AudioSource> audioSourcesList;
-
-    public static SoundManager Instance { get { return _instance; } }
-
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        audioSourcesList = new List<AudioSource>();
-    }
 
     public void PlayMusicMenu() => musicMenu.Play();
     public void StopMusicMenu() => musicMenu.Stop();
@@ -43,6 +23,9 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusicBattle() => battleMusic.Play();
     public void StopMusicBattle() => battleMusic.Stop();
+
+    public void SetMusicMenu(AudioClip newMusicMenu) => musicMenu.clip = newMusicMenu;
+    public void SetMusicInGame(AudioClip newMusicInGame) => inGameMusic.clip = newMusicInGame;
 
     public void PlaySound(string key)
     {
@@ -116,7 +99,7 @@ public class SoundManager : MonoBehaviour
         if (sound == null) Debug.LogError($"[{gameObject.name}.StopSound]Error: \"{key}\" could not be found!");
     }
 
-    public void PlaySoundOnAS(string key, AudioSource _as)
+    public void SetSound(string key, AudioSource _as)
     {
         SoundSO sound = null;
         if (_as == null)
@@ -140,22 +123,10 @@ public class SoundManager : MonoBehaviour
                 _as.maxDistance = sound.maxDistance;
 
                 _as.loop = sound.loop;
-
-                _as.Play();
                 return;
             }
         }
         if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySoundOnAS]Error: \"{key}\" could not be found!");
-    }
-    public void StopSoundOnAS(AudioSource _as)
-    {
-        if (_as == null)
-        {
-            Debug.LogError($"[{gameObject.name}.StopSoundOnAS]Error: referencia null \"{_as}\"");
-            return;
-        }
-
-        _as.Stop();
     }
 
     public void ChangeVolumeSFX(float newVol)
