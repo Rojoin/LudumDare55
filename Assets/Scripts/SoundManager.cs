@@ -14,6 +14,9 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     [SerializeField] AudioSource inGameMusic;
     [SerializeField] List<AudioSource> audioSourcesList;
 
+    [SerializeField] float sfxVolume;
+    [SerializeField] float musicVolume;
+
     public void PlayMusicMenu() => musicMenu.Play();
     public void StopMusicMenu() => musicMenu.Stop();
 
@@ -100,7 +103,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         SoundSO sound = null;
         if (_as == null)
         {
-            Debug.LogError($"[{gameObject.name}.PlaySoundOnAS]Error: Se detecto instancia null: {_as}");
+            Debug.LogError($"[{_as.gameObject.name}.SetSound]Error: Se detecto instancia null: {_as}");
             return;
         }
         for (int i = 0; i < soundList.Length; i++)
@@ -128,7 +131,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
                 return;
             }
         }
-        if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySoundOnAS]Error: \"{key}\" could not be found!");
+        if (sound == null) Debug.LogError($"[{_as.gameObject.name}.SetSound]Error: \"{key}\" could not be found!");
     }
 
     public void ChangeVolumeSFX(float newVol)
@@ -142,15 +145,31 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         {
             audioSourcesList[i].volume = newVol;
         }
+
+        sfxVolume = newVol;
     }
     public void ChangeMusicVolume(float newVol)
     {
         musicMenu.volume = newVol;
         inGameMusic.volume = newVol;
+
+        musicVolume = newVol;
     }
     public void ChangeGeneralVolume(float newVol)
     {
         ChangeVolumeSFX(newVol);
+        sfxVolume = newVol;
+
         ChangeMusicVolume(newVol);
+        musicVolume = newVol;
+    }
+
+    public float GetActualSFXVolume()
+    {
+        return sfxVolume;
+    }
+    public float GetActualMusicVolume()
+    {
+        return musicVolume;
     }
 }
