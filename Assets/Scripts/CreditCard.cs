@@ -38,7 +38,7 @@ namespace CreditCard
         {
             isHeld = Input.GetMouseButton(0);
 
-            if (isHeld && movingCoroutine == null && resetingCoroutine == null)
+            if (isHeld && movingCoroutine == null && !isResetCoroutineRunning)
             {
                 Debug.Log("APRETADO");
                 movingCoroutine = StartCoroutine(MoveCoroutine());
@@ -49,7 +49,6 @@ namespace CreditCard
             onCardDenied.RemoveAllListeners();
             onCardApproved.RemoveAllListeners();
         }
-
         #endregion
 
         #region CustomMethods
@@ -77,8 +76,12 @@ namespace CreditCard
         //}
         private void ResetCard()
         {
-            if (transform.position != initialPosition && !isResetCoroutineRunning)
-                StartCoroutine(ResetCardCoroutine(cardResetSpeed));
+            if (!isResetCoroutineRunning)
+            {
+                if (resetingCoroutine != null)
+                    StopCoroutine(resetingCoroutine);
+                resetingCoroutine = StartCoroutine(ResetCardCoroutine(cardResetSpeed));
+            }
             timeHeld = 0;
         }
         private void CheckCard(float targetPosY)
@@ -99,7 +102,10 @@ namespace CreditCard
         IEnumerator ResetCardCoroutine(float duration)
         {
             if (movingCoroutine != null)
+            {
                 StopCoroutine(movingCoroutine);
+                Debug.Log(movingCoroutine);
+            }
             //float duration = Vector3.Distance(transform.position, initialPosition) / cardResetSpeed;
             isResetCoroutineRunning = true;
             float timer = 0;
@@ -115,7 +121,6 @@ namespace CreditCard
             transform.position = initialPosition;
             prevPosY = transform.position.y;
             isResetCoroutineRunning = false;
-            StopCoroutine(resetingCoroutine);
         }
 
         private IEnumerator MoveCoroutine()
