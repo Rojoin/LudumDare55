@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace CreditCard
 {
-    public class CreditCard : MonoBehaviour
+    public class CreditCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         #region Variables
+
         [SerializeField] private Transform posnetRect;
         [SerializeField] private Vector3 offset;
         [SerializeField] private float minTime;
@@ -37,16 +39,9 @@ namespace CreditCard
 
             onCardDenied.AddListener(ResetCard);
         }
-        void Update()
-        {
-            isHeld = Input.GetMouseButton(0);
 
-            if (isHeld && movingCoroutine == null && !isResetCoroutineRunning)
-            {
-                Debug.Log("APRETADO");
-                movingCoroutine = StartCoroutine(MoveCoroutine());
-            }
-        }
+       
+
         private void OnDestroy()
         {
             onCardDenied.RemoveAllListeners();
@@ -83,6 +78,8 @@ namespace CreditCard
                 onCardDenied.Invoke();
             }
         }
+
+
         #endregion
 
         #region Coroutines
@@ -124,6 +121,35 @@ namespace CreditCard
             Debug.Log("Termino la corrutina");
             CheckCard();
         }
+
         #endregion
+
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            isHeld = true;
+            if (isResetCoroutineRunning)
+            {
+                StopCoroutine(resetingCoroutine);
+                transform.position = initialPosition;
+                prevPosY = transform.position.y;
+                isResetCoroutineRunning = false;
+            }
+            if (movingCoroutine == null)
+            {
+                movingCoroutine = StartCoroutine(MoveCoroutine());
+            }
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            isHeld = false;
+            if (movingCoroutine != null)
+            {
+                StopCoroutine(movingCoroutine);
+                CheckCard();
+            }
+        }
+        
     }
 }
