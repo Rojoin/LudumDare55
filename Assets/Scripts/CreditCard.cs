@@ -155,9 +155,9 @@ namespace CreditCard
                 prevPosY = transform.position.y;
                 yield return null;
             }
-            CheckCard(targetPosY);
 
             Debug.Log("Termino la corrutina");
+            CheckCard();
         }
         #endregion
     }
