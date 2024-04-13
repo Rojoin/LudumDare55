@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace CreditCard
+namespace CreditCardMinigame
 {
     public class CreditCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
