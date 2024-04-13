@@ -23,6 +23,8 @@ namespace CreditCard
         private Coroutine resetingCoroutine;
         public UnityEvent onCardApproved;
         public UnityEvent onCardDenied;
+        public float targetPosY = 0;
+
         #endregion
 
         #region UnityFlow
@@ -86,13 +88,20 @@ namespace CreditCard
         }
         private void CheckCard(float targetPosY)
         {
+            if (movingCoroutine != null)
+            {
+                StopCoroutine(movingCoroutine);
+                movingCoroutine = null;
+            }
+
             if (transform.position.y <= targetPosY && timeHeld < maxTime && timeHeld > minTime)
             {
-                wasCardAccepted = true;
                 onCardApproved.Invoke();
+                Debug.Log("Approve");
             }
             else
             {
+                Debug.Log("Denied");
                 onCardDenied.Invoke();
             }
         }
@@ -147,6 +156,8 @@ namespace CreditCard
                 yield return null;
             }
             CheckCard(targetPosY);
+
+            Debug.Log("Termino la corrutina");
         }
         #endregion
     }
