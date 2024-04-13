@@ -12,7 +12,6 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     [SerializeField] SoundSO[] soundList;
     [SerializeField] AudioSource musicMenu;
     [SerializeField] AudioSource inGameMusic;
-    [SerializeField] AudioSource battleMusic;
     [SerializeField] List<AudioSource> audioSourcesList;
 
     public void PlayMusicMenu() => musicMenu.Play();
@@ -21,83 +20,80 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     public void PlayMusicGame() => inGameMusic.Play();
     public void StopMusicGame() => inGameMusic.Stop();
 
-    public void PlayMusicBattle() => battleMusic.Play();
-    public void StopMusicBattle() => battleMusic.Stop();
-
     public void SetMusicMenu(AudioClip newMusicMenu) => musicMenu.clip = newMusicMenu;
     public void SetMusicInGame(AudioClip newMusicInGame) => inGameMusic.clip = newMusicInGame;
 
-    public void PlaySound(string key)
-    {
-        SoundSO sound = null;
-        for (int i = 0; i < soundList.Length; i++)
-        {
-            if (soundList[i].keyCode == key)
-            {
-                sound = soundList[i];
-                break;
-            }
-        }
-        for (int i = 0; i < audioSourcesList.Count; i++)
-        {
-            if (!audioSourcesList[i].isPlaying)
-            {
-                audioSourcesList[i].clip = sound.clip;
-                audioSourcesList[i].spatialBlend = sound.spatialBlend;
-                audioSourcesList[i].volume = sound.volume;
-                audioSourcesList[i].pitch = sound.pitch;
-                audioSourcesList[i].priority = sound.priority;
+    //public void PlaySound(string key)
+    //{
+    //    SoundSO sound = null;
+    //    for (int i = 0; i < soundList.Length; i++)
+    //    {
+    //        if (soundList[i].keyCode == key)
+    //        {
+    //            sound = soundList[i];
+    //            break;
+    //        }
+    //    }
+    //    for (int i = 0; i < audioSourcesList.Count; i++)
+    //    {
+    //        if (!audioSourcesList[i].isPlaying)
+    //        {
+    //            audioSourcesList[i].clip = sound.clip;
+    //            audioSourcesList[i].spatialBlend = sound.spatialBlend;
+    //            audioSourcesList[i].volume = sound.volume;
+    //            audioSourcesList[i].pitch = sound.pitch;
+    //            audioSourcesList[i].priority = sound.priority;
 
-                audioSourcesList[i].minDistance = sound.minDistance;
-                audioSourcesList[i].maxDistance = sound.maxDistance;
+    //            audioSourcesList[i].minDistance = sound.minDistance;
+    //            audioSourcesList[i].maxDistance = sound.maxDistance;
 
-                audioSourcesList[i].loop = sound.loop;
+    //            audioSourcesList[i].loop = sound.loop;
 
-                audioSourcesList[i].Play();
-                return;
-            }
-        }
+    //            audioSourcesList[i].Play();
+    //            return;
+    //        }
+    //    }
         
-        if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySound]Error: \"{key}\" could not be found!");
-        else
-        {
-            AudioSource newaudio = gameObject.AddComponent<AudioSource>();
-            audioSourcesList.Add(newaudio);
-            newaudio.clip = sound.clip;
-            newaudio.spatialBlend = sound.spatialBlend;
-            newaudio.volume = sound.volume;
-            newaudio.pitch = sound.pitch;
-            newaudio.priority = sound.priority;
+    //    if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySound]Error: \"{key}\" could not be found!");
+    //    else
+    //    {
+    //        AudioSource newaudio = gameObject.AddComponent<AudioSource>();
+    //        audioSourcesList.Add(newaudio);
+    //        newaudio.clip = sound.clip;
+    //        newaudio.spatialBlend = sound.spatialBlend;
+    //        newaudio.volume = sound.volume;
+    //        newaudio.pitch = sound.pitch;
+    //        newaudio.priority = sound.priority;
 
-            newaudio.minDistance = sound.minDistance;
-            newaudio.maxDistance = sound.maxDistance;
+    //        newaudio.minDistance = sound.minDistance;
+    //        newaudio.maxDistance = sound.maxDistance;
 
-            newaudio.loop = sound.loop;
+    //        newaudio.loop = sound.loop;
 
-            newaudio.Play();
-        }
-    }
-    public void StopSound(string key)
-    {
-        SoundSO sound = null;
-        for (int i = 0; i < soundList.Length; i++)
-        {
-            if (soundList[i].keyCode == key)
-            {
-                sound = soundList[i];
-                break;
-            }
-        }
-        for (int i = 0; i < audioSourcesList.Count; i++)
-        {
-            if (audioSourcesList[i].clip == sound.clip && audioSourcesList[i].isPlaying)
-            {
-                audioSourcesList[i].Stop();
-                return;
-            }
-        }
-        if (sound == null) Debug.LogError($"[{gameObject.name}.StopSound]Error: \"{key}\" could not be found!");
-    }
+    //        newaudio.Play();
+    //    }
+    //}
+    //public void StopSound(string key)
+    //{
+    //    SoundSO sound = null;
+    //    for (int i = 0; i < soundList.Length; i++)
+    //    {
+    //        if (soundList[i].keyCode == key)
+    //        {
+    //            sound = soundList[i];
+    //            break;
+    //        }
+    //    }
+    //    for (int i = 0; i < audioSourcesList.Count; i++)
+    //    {
+    //        if (audioSourcesList[i].clip == sound.clip && audioSourcesList[i].isPlaying)
+    //        {
+    //            audioSourcesList[i].Stop();
+    //            return;
+    //        }
+    //    }
+    //    if (sound == null) Debug.LogError($"[{gameObject.name}.StopSound]Error: \"{key}\" could not be found!");
+    //}
 
     public void SetSound(string key, AudioSource _as)
     {
@@ -136,10 +132,9 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
             if (soundList[0].type == SoundType.SFX) soundList[0].volume = newVol;
         }
     }
-    public void ChangeVolumeMusic(float newVol)
+    public void ChangeGeneralVolume(float newVol)
     {
         musicMenu.volume = newVol;
         inGameMusic.volume = newVol;
-        battleMusic.volume = newVol;
     }
 }
