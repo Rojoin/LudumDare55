@@ -28,6 +28,7 @@ namespace CreditCard
         #endregion
 
         #region UnityFlow
+
         private void Start()
         {
             initialPosition = posnetRect.position + posnetRect.localScale / 2 + offset;
@@ -51,42 +52,19 @@ namespace CreditCard
             onCardDenied.RemoveAllListeners();
             onCardApproved.RemoveAllListeners();
         }
+
         #endregion
 
         #region CustomMethods
-        //private void Move()
-        //{
-        //    timeHeld += Time.deltaTime;
 
-        //    float posY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
-        //    float minPosY = posnetRect.position.y - posnetRect.localScale.y / 2;
-        //    float maxPosY = posnetRect.position.y + posnetRect.localScale.y / 2;
-        //    posY = Mathf.Clamp(posY, minPosY, maxPosY);
-
-        //    if (posY > prevPosY)
-        //    {
-        //        Debug.Log($"{posY} is bigger than {prevPosY}, mouse went up");
-        //        Input.ResetInputAxes();
-        //        return;
-        //    }
-
-        //    transform.position = new Vector3(transform.position.x, posY);
-        //    prevPosY = transform.position.y;
-
-        //    if (transform.position.y == minPosY)
-        //        CheckCard();
-        //}
+  
         private void ResetCard()
         {
-            if (!isResetCoroutineRunning)
-            {
-                if (resetingCoroutine != null)
-                    StopCoroutine(resetingCoroutine);
-                resetingCoroutine = StartCoroutine(ResetCardCoroutine(cardResetSpeed));
-            }
+            resetingCoroutine = StartCoroutine(ResetCardCoroutine());
             timeHeld = 0;
         }
-        private void CheckCard(float targetPosY)
+
+        private void CheckCard()
         {
             if (movingCoroutine != null)
             {
@@ -108,23 +86,19 @@ namespace CreditCard
         #endregion
 
         #region Coroutines
-        IEnumerator ResetCardCoroutine(float duration)
+
+        IEnumerator ResetCardCoroutine()
         {
-            if (movingCoroutine != null)
-            {
-                StopCoroutine(movingCoroutine);
-                Debug.Log(movingCoroutine);
-            }
             //float duration = Vector3.Distance(transform.position, initialPosition) / cardResetSpeed;
             isResetCoroutineRunning = true;
             float timer = 0;
             float prevTime = Time.time;
-            while (timer < duration)
+            while (timer < cardResetSpeed)
             {
                 float actualTime = Time.time;
                 timer += actualTime - prevTime;
                 prevTime = actualTime;
-                transform.position = Vector3.Lerp(transform.position, initialPosition, timer / duration);
+                transform.position = Vector3.Lerp(transform.position, initialPosition, timer / cardResetSpeed);
                 yield return null;
             }
             transform.position = initialPosition;
@@ -136,23 +110,14 @@ namespace CreditCard
         {
             timeHeld = 0;
             float initialPosY = posnetRect.position.y + posnetRect.localScale.y / 2;
-            float targetPosY = posnetRect.position.y - posnetRect.localScale.y / 2;
-            while (transform.position.y < targetPosY || isHeld)
+            targetPosY = posnetRect.position.y - posnetRect.localScale.y / 2;
+            while (transform.position.y > targetPosY && isHeld)
             {
                 timeHeld += Time.deltaTime;
 
                 float posY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
                 posY = Mathf.Clamp(posY, targetPosY, initialPosY);
-
-                if (posY > prevPosY)
-                {
-                    Debug.Log($"{posY} is bigger than {prevPosY}, mouse went up");
-                    Input.ResetInputAxes();
-                    yield break;
-                }
-
                 transform.position = new Vector3(transform.position.x, posY);
-                prevPosY = transform.position.y;
                 yield return null;
             }
 
