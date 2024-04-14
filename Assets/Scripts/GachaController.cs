@@ -13,6 +13,7 @@ public class GachaController : MonoBehaviour
     public PlayerStatsSO playerStats;
     public ItemAnim item;
     public CreditCard creditCardGame;
+    public Animator animator;
     [SerializeField] private WishBannerController _wishBannerController;
     [Header("Buttons")]
     public Button wishButton;
@@ -38,6 +39,7 @@ public class GachaController : MonoBehaviour
     [SerializeField]  private TextMeshProUGUI textMesh;
     [Header("Events")]
     public UnityEvent onLegendaryDropped;
+    private static readonly int Summon = Animator.StringToHash("Summon");
 
     private void OnEnable()
     {
@@ -105,6 +107,13 @@ public class GachaController : MonoBehaviour
 
     private void SummonCharacter()
     {
+        SetCanvasState(wishBuyScreen,false);
+        animator.SetTrigger(Summon);
+        Invoke(nameof(ChangeToCharacterShowCase),0.8f);
+    }
+
+    private void ChangeToCharacterShowCase()
+    {
         GetCharactersList();
         SetCanvasState(showGachaSummon,true);
         counter = 0;
@@ -125,6 +134,7 @@ public class GachaController : MonoBehaviour
          maxWishesPerRound = gachaDisplay.Count;
         if (counter < maxWishesPerRound)
         {
+            animator.SetTrigger(Summon);
             gachaDisplay[counter].SetGachaCharacter(currentWishes[counter]);
             item.SetSprite(currentWishes[counter].image);
             item.enabled = true;
@@ -144,7 +154,8 @@ public class GachaController : MonoBehaviour
     }
     private void GoBackToWishScreen ()
     {
-        SetCanvasState(showAllSummons,false);
+        SetCanvasState(showAllSummons,false);        
+        SetCanvasState(wishBuyScreen,true); 
     }
 
 

@@ -21,6 +21,7 @@ public class ItemAnim : MonoBehaviour
 
     void OnEnable()
     {
+        
         itemImage = item.GetComponent<Image>();
         itemImage.sprite = currentSprite;
         panelImage = panel.GetComponent<Image>();
@@ -50,6 +51,7 @@ public class ItemAnim : MonoBehaviour
     }
     private IEnumerator PanelFadeIn()
     {
+        item.SetActive(false);
         panel.SetActive(true);
         Color panelOpaque = panelImage.color;
         panelImage.color = Transparent(panelImage.color);

@@ -61,6 +61,8 @@ public class GachaListSO : ScriptableObject
                         return charactersInRotation[0];
                     }
                 }
+
+                return gachaCharacterSo;
             }
         }
 
