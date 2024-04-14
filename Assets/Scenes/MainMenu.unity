@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 401386475}
   - component: {fileID: 401386474}
   - component: {fileID: 401386473}
+  - component: {fileID: 401386476}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -180,7 +181,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 3
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -243,6 +244,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401386471}
   m_CullTransparentMesh: 1
+--- !u!114 &401386476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401386471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56cd39617e110848b8ae24779061a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSpeed: 3
+  scaleLimit: 1.2
+  modifyColor: 1
+  buttonImage: {fileID: 401386474}
+  clickedHighlightColor: {r: 0.752, g: 0.752, b: 0.752, a: 1}
+  modifyImage: 0
+  baseImageIsTransparent: 0
+  imageDefault: {fileID: 0}
+  imageHighlighted: {fileID: 0}
+  currentImage: {fileID: 0}
+  textHighlight: 0
+  textToHighlight: {fileID: 0}
+  textColorHighlight: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &663442457
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +720,7 @@ GameObject:
   - component: {fileID: 1817553270}
   - component: {fileID: 1817553269}
   - component: {fileID: 1817553268}
+  - component: {fileID: 1817553271}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -739,7 +766,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -802,6 +829,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817553266}
   m_CullTransparentMesh: 1
+--- !u!114 &1817553271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817553266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56cd39617e110848b8ae24779061a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSpeed: 3
+  scaleLimit: 1.2
+  modifyColor: 1
+  buttonImage: {fileID: 1817553269}
+  clickedHighlightColor: {r: 0.752, g: 0.752, b: 0.752, a: 1}
+  modifyImage: 0
+  baseImageIsTransparent: 0
+  imageDefault: {fileID: 0}
+  imageHighlighted: {fileID: 0}
+  currentImage: {fileID: 0}
+  textHighlight: 0
+  textToHighlight: {fileID: 0}
+  textColorHighlight: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1998877867
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +941,7 @@ GameObject:
   - component: {fileID: 2020653925}
   - component: {fileID: 2020653924}
   - component: {fileID: 2020653923}
+  - component: {fileID: 2020653926}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -934,7 +987,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -997,6 +1050,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020653921}
   m_CullTransparentMesh: 1
+--- !u!114 &2020653926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020653921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56cd39617e110848b8ae24779061a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSpeed: 3
+  scaleLimit: 1.2
+  modifyColor: 1
+  buttonImage: {fileID: 2020653924}
+  clickedHighlightColor: {r: 0.752, g: 0.752, b: 0.752, a: 1}
+  modifyImage: 0
+  baseImageIsTransparent: 0
+  imageDefault: {fileID: 0}
+  imageHighlighted: {fileID: 0}
+  currentImage: {fileID: 0}
+  textHighlight: 0
+  textToHighlight: {fileID: 0}
+  textColorHighlight: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
