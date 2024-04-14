@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogManager : MonoBehaviourSingleton<DialogManager>
 {
@@ -10,8 +12,7 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
     [SerializeField] List<string> dialogsQueue;
     List<float> dialogsQueueTime;
 
-    [SerializeField] float fadeVelocity;
-
+    [SerializeField] float fadeVelocity = 3f;
 
     bool dialogInUse = false;
 
@@ -68,6 +69,8 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
             dialogsQueueTime.Add(time);
         }
     }
+
+    // public void SendDialog(string dialogText, float time) => OnSendDialog.Invoke(dialogText, time);
 
     IEnumerator CountDownShowDialog(string dialogText, float time)
     {
