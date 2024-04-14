@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using UnityEditor.Rendering;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
@@ -13,23 +14,23 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerRB;
     private string lateralInputAxis = "Horizontal";
-    private Transform playerTransform;
     [SerializeField]    [Range(5.0f, 100.0f)]   private float speed;
 
     void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
-        playerTransform = GetComponent<Transform>();
         playerRB = GetComponent<Rigidbody2D>();
     }
-
-    void Update()
+    
+    private void FixedUpdate()
     {
-        moveVector = new Vector2(Input.GetAxisRaw(lateralInputAxis), 0);
-        playerTransform.Translate(moveVector * speed * Time.deltaTime, Space.World);
+        float x = Input.GetAxis(lateralInputAxis);
+        moveVector = new Vector2(x * speed, 0);
+        playerRB.MovePosition(playerRB.position + moveVector * Time.fixedDeltaTime);
+
         if (moveVector != Vector2.zero)
         {
             Debug.Log("moving");
-        }        
+        }
     }
 }
