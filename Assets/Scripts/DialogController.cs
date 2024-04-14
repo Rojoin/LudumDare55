@@ -6,17 +6,26 @@ using UnityEngine.Rendering.Universal;
 public class DialogController : MonoBehaviour
 {
     [SerializeField] string dialogToShow = "Sin Texto";
-    [SerializeField] float timeOfDialog;
-
     [SerializeField] string acceptTag = "Player";
+
+    [SerializeField] float timeOfDialog = 3f;
+    [SerializeField] float repeatEvery = 10f;
+    float timer;
+
+    [SerializeField] bool repeat = false;
+
+    private void Update()
+    {
+        timer = (timer <= 0 && repeat) ?  0 : timer - Time.deltaTime;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == acceptTag)
+        if (collision.gameObject.tag == acceptTag && timer <= 0)
         {
             DialogManager.Instance.ShowDialog(dialogToShow, timeOfDialog);
-
-            gameObject.SetActive(false);
+            timer = repeatEvery;
         }
     }
 }

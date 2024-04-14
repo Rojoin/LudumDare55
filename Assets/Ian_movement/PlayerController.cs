@@ -13,23 +13,28 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerRB;
     private string lateralInputAxis = "Horizontal";
-    private Transform playerTransform;
-    [SerializeField]    [Range(5.0f, 100.0f)]   private float speed;
-
+    [SerializeField][Range(5.0f, 100.0f)] private float speed;
+    float x;
     void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
-        playerTransform = GetComponent<Transform>();
         playerRB = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        moveVector = new Vector2(Input.GetAxisRaw(lateralInputAxis), 0);
-        playerTransform.Translate(moveVector * speed * Time.deltaTime, Space.World);
+        x = Input.GetAxis(lateralInputAxis);
+    }
+
+    private void FixedUpdate()
+    {
+        moveVector = new Vector2(x * speed * Time.deltaTime, 0);
+        // playerRB.MovePosition(playerRB.position + moveVector * Time.fixedDeltaTime);
+        playerRB.AddForce(moveVector, ForceMode2D.Impulse);
+
         if (moveVector != Vector2.zero)
         {
             Debug.Log("moving");
-        }        
+        }
     }
 }
