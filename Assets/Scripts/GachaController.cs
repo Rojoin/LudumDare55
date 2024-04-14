@@ -45,7 +45,7 @@ public class GachaController : MonoBehaviour
         goBackToWishes.onClick.AddListener(HideBuyPrompt);
         nextScreen.onClick.AddListener(TryNextCharacter);
         goBackToWishesAfterGacha.onClick.AddListener(GoBackToWishScreen);
-        //_wishBannerController.SetBanner(currentGachaList);
+        _wishBannerController.SetBanner(currentGachaList);
         SetCanvasState(wishBuyScreen, true);
         SetCanvasState(buyPromptScreen, false);
         SetCanvasState(showGachaSummon, false);
@@ -161,5 +161,5 @@ public class GachaController : MonoBehaviour
 public enum Rarity
 {
     normal = 1,
-    keyItem = 1
+    keyItem = 2
 }
