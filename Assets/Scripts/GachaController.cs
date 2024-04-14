@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CreditCardMinigame;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -34,6 +35,7 @@ public class GachaController : MonoBehaviour
     public List<GachaCharacterDisplay> gachaDisplay;
     private GachaListSO currentGachaList;
     private List<GachaCharacterSO> currentWishes = new List<GachaCharacterSO>();
+    [SerializeField]  private TextMeshProUGUI textMesh;
     [Header("Events")]
     public UnityEvent onLegendaryDropped;
 
@@ -67,6 +69,7 @@ public class GachaController : MonoBehaviour
         if (playerStats.money == 5)
         {
             playerStats.money -= 5;
+            textMesh.text = "Wishes:" + playerStats.money;
             SummonCharacter();
         }
         else
@@ -94,6 +97,7 @@ public class GachaController : MonoBehaviour
     private void DeactivateCreditCard()
     {
         playerStats.money += 5;
+        textMesh.text = "Wishes:" + playerStats.money;
         creditCardGame.enabled = false;
         SetCanvasState(showCreditCard,false);
         creditCardGame.onCardApproved.RemoveListener(DeactivateCreditCard);
