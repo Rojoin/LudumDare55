@@ -43,7 +43,7 @@ public class GachaListSO : ScriptableObject
                     }
                     else
                     {
-                        return getRandomCharacter();
+                        return charactersInRotation[0];
                     }
                 }
             }

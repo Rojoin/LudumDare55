@@ -10,39 +10,39 @@ namespace CreditCardMinigame
     {
         #region Variables
 
-        [SerializeField] private Transform posnetRect;
-        [SerializeField] private Vector3 offset;
+        [SerializeField] private RectTransform cardTransform;
         [SerializeField] private float minTime;
         [SerializeField] private float maxTime;
         [SerializeField] private float cardResetSpeed;
+        [SerializeField] RectTransform initPosition;
+        [SerializeField] RectTransform endPosition;
         private float timeHeld = 0;
-        private float prevPosY;
         private bool wasCardAccepted;
         private bool isHeld = false;
-        private Vector3 initialPosition;
+        private Vector2 initialPosition;
+        private Vector2 endingPosition;
         private bool isResetCoroutineRunning = false;
         private Coroutine movingCoroutine;
         private Coroutine resetingCoroutine;
         public UnityEvent onCardApproved;
         public UnityEvent onCardDenied;
         public float targetPosY = 0;
+        [SerializeField] private float offsetY  =20;
 
         #endregion
 
         #region UnityFlow
 
-        private void Start()
+        private void OnEnable()
         {
-            initialPosition = posnetRect.position + posnetRect.localScale / 2 + offset;
-            transform.position = initialPosition;
-            prevPosY = transform.position.y;
-
+            initialPosition = new Vector2(initPosition.anchoredPosition.x,initPosition.anchoredPosition.y);
+            endingPosition =  new Vector2(endPosition.anchoredPosition.x,endPosition.anchoredPosition.y);
+            targetPosY = endingPosition.y;
+            cardTransform.anchoredPosition = initialPosition;
             onCardDenied.AddListener(ResetCard);
         }
-
-       
-
-        private void OnDestroy()
+        
+        private void OnDisable()
         {
             onCardDenied.RemoveAllListeners();
             onCardApproved.RemoveAllListeners();
@@ -67,7 +67,7 @@ namespace CreditCardMinigame
                 movingCoroutine = null;
             }
 
-            if (transform.position.y <= targetPosY && timeHeld < maxTime && timeHeld > minTime)
+            if (cardTransform.anchoredPosition.y <= targetPosY && timeHeld < maxTime && timeHeld > minTime)
             {
                 onCardApproved.Invoke();
                 Debug.Log("Approve");
@@ -95,26 +95,25 @@ namespace CreditCardMinigame
                 float actualTime = Time.time;
                 timer += actualTime - prevTime;
                 prevTime = actualTime;
-                transform.position = Vector3.Lerp(transform.position, initialPosition, timer / cardResetSpeed);
+                cardTransform.anchoredPosition = Vector2.Lerp(cardTransform.anchoredPosition, initialPosition, timer / cardResetSpeed);
                 yield return null;
             }
-            transform.position = initialPosition;
-            prevPosY = transform.position.y;
+            cardTransform.anchoredPosition = initialPosition;
             isResetCoroutineRunning = false;
         }
 
         private IEnumerator MoveCoroutine()
         {
             timeHeld = 0;
-            float initialPosY = posnetRect.position.y + posnetRect.localScale.y / 2;
-            targetPosY = posnetRect.position.y - posnetRect.localScale.y / 2;
-            while (transform.position.y > targetPosY && isHeld)
+          
+            while (cardTransform.anchoredPosition .y > targetPosY && isHeld)
             {
                 timeHeld += Time.deltaTime;
 
-                float posY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
-                posY = Mathf.Clamp(posY, targetPosY, initialPosY);
-                transform.position = new Vector3(transform.position.x, posY);
+                Vector2 mousePosRelativeToCenter = (Vector2)Input.mousePosition;
+                float posY = mousePosRelativeToCenter.y + offsetY;
+                posY = Mathf.Clamp(posY, endingPosition.y, initialPosition.y);
+                cardTransform.anchoredPosition = new Vector2(cardTransform.anchoredPosition.x, posY);
                 yield return null;
             }
 
@@ -131,8 +130,7 @@ namespace CreditCardMinigame
             if (isResetCoroutineRunning)
             {
                 StopCoroutine(resetingCoroutine);
-                transform.position = initialPosition;
-                prevPosY = transform.position.y;
+                cardTransform.anchoredPosition = initialPosition;
                 isResetCoroutineRunning = false;
             }
             if (movingCoroutine == null)

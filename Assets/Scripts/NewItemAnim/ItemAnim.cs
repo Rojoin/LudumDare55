@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +16,31 @@ public class ItemAnim : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private GameObject panel;
     [SerializeField] private Image panelImage;
+    private Sprite currentSprite;
     private Vector3 originalScale;
 
-    void Start()
+    void OnEnable()
     {
         itemImage = item.GetComponent<Image>();
+        itemImage.sprite = currentSprite;
         panelImage = panel.GetComponent<Image>();
-        originalScale = item.transform.localScale;
+        originalScale = Vector3.one;
 
+        StartAnim();
+    }
+
+    
+    public void StartAnim()
+    {
         StartCoroutine(CharacterReveal());
+    }
+    public void SetSprite(Sprite sprite)
+    {
+        currentSprite = sprite;
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator CharacterReveal()
