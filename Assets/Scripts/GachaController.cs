@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class GachaController : MonoBehaviour
 {
+    [Header("Classes")]
     public PlayerStatsSO playerStats;
     public ItemAnim item;
     public CreditCard creditCardGame;
+    [SerializeField] private WishBannerController _wishBannerController;
     [Header("Buttons")]
     public Button wishButton;
     public Button buyButton;
@@ -43,6 +45,7 @@ public class GachaController : MonoBehaviour
         goBackToWishes.onClick.AddListener(HideBuyPrompt);
         nextScreen.onClick.AddListener(TryNextCharacter);
         goBackToWishesAfterGacha.onClick.AddListener(GoBackToWishScreen);
+        //_wishBannerController.SetBanner(currentGachaList);
         SetCanvasState(wishBuyScreen, true);
         SetCanvasState(buyPromptScreen, false);
         SetCanvasState(showGachaSummon, false);
@@ -146,7 +149,7 @@ public class GachaController : MonoBehaviour
         currentWishes.Clear();
         for (int i = 0; i < gachaDisplay.Count; i++)
         {
-            currentWishes.Add(currentGachaList.getRandomCharacter());
+            currentWishes.Add(currentGachaList.GetRandomCharacterWish());
             if (currentGachaList.legendaryAlreadyDropped)
             {
                 onLegendaryDropped.Invoke();

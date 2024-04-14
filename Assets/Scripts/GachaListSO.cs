@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,7 +12,21 @@ public class GachaListSO : ScriptableObject
     public int MaxWishesBeforeLegendary = 3;
     public bool legendaryAlreadyDropped = false;
 
-    public GachaCharacterSO getRandomCharacter()
+    public GachaCharacterSO GetLegendaryChar()
+    {
+        foreach (GachaCharacterSO characterSo in charactersInRotation)
+        {
+            if (characterSo.rarity == Rarity.keyItem)
+            {
+                return characterSo;
+            }
+        }
+
+        return charactersInRotation[0];
+    }
+    
+
+    public GachaCharacterSO GetRandomCharacterWish()
     {
         float totalProbability = 0.0f;
 
