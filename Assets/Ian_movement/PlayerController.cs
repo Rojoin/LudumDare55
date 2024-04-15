@@ -16,19 +16,20 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRB;
     private string lateralInputAxis = "Horizontal";
     [SerializeField] [Range(5.0f, 100.0f)] private float speed;
-     private float speedTired = 1.0f;
-     [Range(0.0f, 1.0f)] public float tiredSpeedMultipliyer = 0.3f;
+    private float speedTired = 1.0f;
+    [Range(0.0f, 1.0f)] public float tiredSpeedMultipliyer = 0.3f;
     [SerializeField] private SoundSO[] stepsSounds;
     float x;
+    bool movesWithButtons = false;
     [SerializeField] private Animator animator;
     public bool isLookingRight = true;
     [SerializeField] private Transform pivot;
     [Range(0.0f, 3.0f)] public float timeBetweenSteps = 0.1f;
-      private float timerSteps;
+    private float timerSteps;
 
     void Awake()
     {
-      
+
     }
 
     private void OnEnable()
@@ -51,8 +52,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        x = Input.GetAxis(lateralInputAxis);
-      
+        if (!movesWithButtons)
+            x = Input.GetAxis(lateralInputAxis);
+
 
         if ((x < 0 && isLookingRight) || (x > 0 && !isLookingRight))
             FlipHorizontal();
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        moveVector = new Vector2(x * speed *speedTired* Time.deltaTime, 0);
+        moveVector = new Vector2(x * speed * speedTired * Time.deltaTime, 0);
         // playerRB.MovePosition(playerRB.position + moveVector * Time.fixedDeltaTime);
         playerRB.AddForce(moveVector, ForceMode2D.Impulse);
 
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
             timerSteps += Time.fixedDeltaTime;
             if (timerSteps >= timeBetweenSteps)
             {
-                stepsSounds[Random.Range(0,stepsSounds.Length)].PlaySound();
+                stepsSounds[Random.Range(0, stepsSounds.Length)].PlaySound();
                 timerSteps -= timeBetweenSteps;
             }
         }
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
     public void SetTiredness(bool isTired)
     {
         animator.SetBool("isTired", isTired);
-        speedTired = isTired ? tiredSpeedMultipliyer: 1.0f;
+        speedTired = isTired ? tiredSpeedMultipliyer : 1.0f;
     }
 
     public void FlipHorizontal()
@@ -102,5 +104,11 @@ public class PlayerController : MonoBehaviour
             isLookingRight = true;
 
         pivot.Rotate(0, 180, 0);
+    }
+
+    public void ButtonInput(int axisValue)
+    {
+        movesWithButtons = true;
+        x = axisValue;
     }
 }
