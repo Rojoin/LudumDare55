@@ -15,9 +15,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private PlayerController player;
     private bool isPauseOn = false;
     private bool isGachaOn = false;
+    [SerializeField] private PlayerStatsSO playerStats;
 
     private void OnEnable()
     {
+        playerStats.OnReset();
         _gachaController = GetComponent<GachaController>();
         _gachaController.enabled = isGachaOn;
         pauseMenu.SetCanvasState(isPauseOn);

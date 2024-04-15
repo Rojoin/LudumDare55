@@ -8,9 +8,11 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] Button quitButton;
 
     [SerializeField] GameObject optionsPanel;
+   
     // Start is called before the first frame update
     void Awake()
     {
+        SoundManager.Instance.PlayMusicGame();
         playButton.onClick.AddListener(() =>
         {
             Loader.LoadScene(Loader.Scenes.Game);
@@ -31,5 +33,6 @@ public class MainMenuUI : MonoBehaviour
 #endif
             Application.Quit();
         });
+        
     }
 }

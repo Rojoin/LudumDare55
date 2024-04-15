@@ -51,7 +51,7 @@ public class GachaController : MonoBehaviour
 
     private void OnEnable()
     {
-        playerStats.OnReset();
+       
         container.SetCanvasState(true);
         currentList = playerStats.counterState;
         currentGachaList = posiblesGachaList[currentList];
