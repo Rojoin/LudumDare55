@@ -14,21 +14,21 @@ public class MobileButtons : MonoBehaviour
 
     private void Awake()
     {
-        if (!CheckIfMobile())
+        if (!CheckMobile.CheckIfMobile())
         {
             Destroy(leftButton);
             Destroy(rightButton);
         }
     }
 
-    private bool CheckIfMobile()
-    {
-        bool isMobile = false;
+//    private bool CheckIfMobile()
+//    {
+//        bool isMobile = false;
 
-#if !UNITY_EDITOR && UNITY_WEBGL
-        isMobile = IsMobile();
-#endif
+//#if !UNITY_EDITOR && UNITY_WEBGL
+//        isMobile = IsMobile();
+//#endif
 
-        return isMobile;
-    }
+//        return isMobile;
+//    }
 }
