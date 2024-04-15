@@ -10,7 +10,7 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
 {
     [SerializeField] TextMeshProUGUI _dialogUGUI;
     [SerializeField] List<string> dialogsQueue;
-    List<float> dialogsQueueTime;
+    [SerializeField] List<float> dialogsQueueTime;
 
     [SerializeField] float fadeVelocity = 3f;
 
@@ -25,7 +25,6 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
 
         if (dialogsQueue.Count > 0)
             StartCoroutine(VerifyDialogQueue());
-
     }
 
     void FadeIn()
@@ -40,7 +39,6 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
 
         _dialogUGUI.alpha = (_dialogUGUI.alpha < 0.1) ? 0 : _dialogUGUI.alpha;
     }
-
     void QueueDialog()
     {
         if (dialogsQueue.Count > 0 && !dialogInUse)
@@ -70,8 +68,6 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
         }
     }
 
-    // public void SendDialog(string dialogText, float time) => OnSendDialog.Invoke(dialogText, time);
-
     IEnumerator CountDownShowDialog(string dialogText, float time)
     {
         _dialogUGUI.alpha = 0;
@@ -81,9 +77,8 @@ public class DialogManager : MonoBehaviourSingleton<DialogManager>
 
         dialogInUse = false;
 
-        Debug.Log("Termino la coorutina");
+        Debug.Log("Termino la coorrutina");
     }
-
     IEnumerator VerifyDialogQueue()
     {
         QueueDialog();
