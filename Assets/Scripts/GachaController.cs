@@ -136,7 +136,7 @@ public class GachaController : MonoBehaviour
         {
             animator.SetTrigger(Summon);
             gachaDisplay[counter].SetGachaCharacter(currentWishes[counter]);
-            item.SetSprite(currentWishes[counter].image);
+            item.SetItem(currentWishes[counter]);
             item.enabled = true;
             item.StartAnim();
             counter++;
@@ -170,11 +170,12 @@ public class GachaController : MonoBehaviour
                 onLegendaryDropped.Invoke();
             }
         }
+        currentGachaList.counterUntilLegendary++;
     }
 }
 
 public enum Rarity
 {
-    normal = 1,
+    normal = 10,
     keyItem = 2
 }
