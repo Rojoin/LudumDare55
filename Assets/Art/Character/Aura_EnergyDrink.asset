@@ -15,5 +15,5 @@ MonoBehaviour:
   characterName: Energy Drink
   description: It gives you...POWER
   image: {fileID: 21300000, guid: c277740dd3998f84abb6eed93223c69e, type: 3}
-  rarity: 1
+  rarity: 2
   cumulativePercentage: 1

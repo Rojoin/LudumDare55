@@ -15,5 +15,5 @@ MonoBehaviour:
   characterName: lautaro
   description: I don't manage the Rating... I manage your ceppics
   image: {fileID: 21300000, guid: e3fa0d52fa985b3419c26b89a0bdd706, type: 3}
-  rarity: 1
+  rarity: 10
   cumulativePercentage: 1

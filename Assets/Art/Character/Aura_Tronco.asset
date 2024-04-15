@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e251deb7d15a46b7b74b53f0a4439eab, type: 3}
   m_Name: Aura_Tronco
   m_EditorClassIdentifier: 
-  characterName: Energy Drink
-  description: It gives you...POWER
-  image: {fileID: 21300000, guid: c277740dd3998f84abb6eed93223c69e, type: 3}
-  rarity: 1
+  characterName: Wet log
+  description: it's just a wet log, it could even break
+  image: {fileID: 21300000, guid: 3164e18bb49ec81468f03c7eb4a5edef, type: 3}
+  rarity: 2
   cumulativePercentage: 1
