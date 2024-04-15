@@ -106,6 +106,11 @@ public class PlayerController : MonoBehaviour
         pivot.Rotate(0, 180, 0);
     }
 
+    public void FreezePlayer()
+    {
+        playerRB.velocity = Vector2.zero;
+        animator.SetBool("isWalking", false);
+    }
     public void ButtonInput(int axisValue)
     {
         movesWithButtons = true;

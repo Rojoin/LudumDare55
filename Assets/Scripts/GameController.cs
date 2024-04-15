@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
         isPauseOn = !isPauseOn;
         pauseMenu.SetCanvasState(isPauseOn);
         player.enabled = !isPauseOn;
+        player.FreezePlayer();
     }
 
     private void ToggleGacha()
@@ -57,7 +58,7 @@ public class GameController : MonoBehaviour
         isGachaOn = !isGachaOn;
         _gachaController.enabled = isGachaOn;
         player.enabled = !isGachaOn;
-
+        player.FreezePlayer();
     }
 
     private void ReturnToMenu()
