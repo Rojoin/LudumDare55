@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lisa
   m_EditorClassIdentifier: 
   characterName: Lisa
-  description: Hi x2 ?
+  description: I wanted to be reincarnate as a NFT
   image: {fileID: 21300000, guid: 5f34c7ff796029c4bb092c57cd4df04f, type: 3}
   rarity: 10
-  cumulativePercentage: 1
+  cumulativePercentage: 0.3125

@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c58ff38edae9efb44b1087fc90bb7be4
   - enabled: 1
-    path: Assets/Scenes/NachoTestScene.unity
-    guid: 1e57b95596465b84198a7c450bb60709
+    path: Assets/Scenes/GameScene.unity
+    guid: 5378b310f9e3e9940902f1f06d90b727
   m_configObjects: {}

@@ -22,4 +22,9 @@ public class SoundSO : ScriptableObject
     public bool loop;
 
     public SoundType type = SoundType.SFX;
+    
+    public void PlaySound()
+    {
+        SoundManager.Instance.PlaySound(keyCode);
+    }
 }

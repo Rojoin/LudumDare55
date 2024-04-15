@@ -29,6 +29,7 @@ public class GachaListSO : ScriptableObject
     }
 private GachaCharacterSO GetRandomCommonCharacterSO()
 {
+    common.Clear();
     foreach (GachaCharacterSO characterSo in charactersInRotation)
     {
         if (characterSo.rarity != Rarity.keyItem)

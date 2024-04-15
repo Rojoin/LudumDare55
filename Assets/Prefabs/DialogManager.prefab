@@ -186,5 +186,4 @@ MonoBehaviour:
   _dialogUGUI: {fileID: 2912338608778439835}
   dialogsQueue: []
   dialogsQueueTime: []
-  dialogTime: 10
-  fadeTime: 5
+  fadeVelocity: 3

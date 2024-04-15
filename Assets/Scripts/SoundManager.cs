@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,14 +16,16 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     [SerializeField] AudioSource inGameMusic;
     [SerializeField] List<AudioSource> audioSourcesList;
 
-    [SerializeField] float sfxVolume;
-    [SerializeField] float musicVolume;
+    [SerializeField] [Range(0, 1)] float sfxVolume;
+    [SerializeField] [Range(0, 1)] float musicVolume;
 
     public void PlayMusicMenu() => musicMenu.Play();
     public void StopMusicMenu() => musicMenu.Stop();
 
     public void PlayMusicGame() => inGameMusic.Play();
     public void StopMusicGame() => inGameMusic.Stop();
+
+  
 
     public void SetMusicMenu(string key)
     {
@@ -37,6 +40,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
 
         Debug.LogError($"No se encontro {key} en la lista o no pertenece a Tipo Musica");
     }
+
     public void SetMusicInGame(string key)
     {
         for (int i = 0; i < soundList.Length; i++)
@@ -65,7 +69,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
             }
         }
 
-        audioSourcesList[0].PlayOneShot(sound.clip);
+        audioSourcesList[0].PlayOneShot(sound.clip, sound.volume * sfxVolume);
 
         if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySound]Error: \"{key}\" could not be found!");
 
@@ -108,6 +112,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         //    newaudio.Play();
         //}
     }
+
     public void StopSound(string key)
     {
         SoundSO sound = null;
@@ -119,6 +124,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
                 break;
             }
         }
+
         for (int i = 0; i < audioSourcesList.Count; i++)
         {
             if (audioSourcesList[i].clip == sound.clip && audioSourcesList[i].isPlaying)
@@ -127,6 +133,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
                 return;
             }
         }
+
         if (sound == null) Debug.LogError($"[{gameObject.name}.StopSound]Error: \"{key}\" could not be found!");
     }
 
@@ -138,6 +145,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
             Debug.LogError($"[{_as.gameObject.name}.SetSound]Error: Se detecto instancia null: {_as}");
             return;
         }
+
         for (int i = 0; i < soundList.Length; i++)
         {
             if (soundList[i].keyCode == key)
@@ -160,33 +168,39 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
                     audioSourcesList.Add(_as);
                     Debug.Log("Sound Adds Succes");
                 }
+
                 return;
             }
         }
+
         if (sound == null) Debug.LogError($"[{_as.gameObject.name}.SetSound]Error: \"{key}\" could not be found!");
     }
 
     public void ChangeVolumeSFX(float newVol)
     {
+        var volume = newVol / 100.0f;
         for (int i = 0; i < soundList.Length; i++)
         {
-            if (soundList[i].type == SoundType.SFX) soundList[i].volume = newVol;
+            if (soundList[i].type == SoundType.SFX) soundList[i].volume = volume;
         }
 
         for (int i = 0; i < audioSourcesList.Count; i++)
         {
-            audioSourcesList[i].volume = newVol;
+            audioSourcesList[i].volume = volume;
         }
 
-        sfxVolume = newVol;
+        sfxVolume = volume;
     }
+
     public void ChangeMusicVolume(float newVol)
     {
-        musicMenu.volume = newVol;
-        inGameMusic.volume = newVol;
+        var volume = newVol / 100.0f;
+        musicMenu.volume = volume;
+        inGameMusic.volume = volume;
 
-        musicVolume = newVol;
+        musicVolume = volume;
     }
+
     public void ChangeGeneralVolume(float newVol)
     {
         ChangeVolumeSFX(newVol);
@@ -201,7 +215,7 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         for (int i = 0; i < soundList.Length; i++)
         {
             if (soundList[i].keyCode == key)
-            {    
+            {
                 return soundList[i].clip;
             }
         }
@@ -209,10 +223,12 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         Debug.LogError($"No se encontro {key} en la lista.");
         return null;
     }
+
     public float GetActualSFXVolume()
     {
         return sfxVolume;
     }
+
     public float GetActualMusicVolume()
     {
         return musicVolume;

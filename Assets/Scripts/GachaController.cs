@@ -28,6 +28,7 @@ public class GachaController : MonoBehaviour
     [SerializeField] private CanvasGroup showGachaSummon;
     [SerializeField] private CanvasGroup showAllSummons;
     [SerializeField] private CanvasGroup showCreditCard;
+    [SerializeField] private CanvasGroup container;
 
     [Header("Variables")]
     private int wishCounter = 0;
@@ -37,14 +38,21 @@ public class GachaController : MonoBehaviour
     private GachaListSO currentGachaList;
     private List<GachaCharacterSO> currentWishes = new List<GachaCharacterSO>();
     private int currentList = 0;
-    [SerializeField]  private TextMeshProUGUI textMesh;
+    [SerializeField] private TextMeshProUGUI textMesh;
     [Header("Events")]
     public UnityEvent onLegendaryDropped;
-    public  UnityEvent onStoryContinue;
+    public UnityEvent onStoryContinue;
+    public UnityEvent onLegendarySound;
+    public UnityEvent onMessiSound;
+    public UnityEvent onNormalSound;
+    public UnityEvent onSummonSound;
     private static readonly int Summon = Animator.StringToHash("Summon");
+    private bool firstTimeLegendary = false;
 
     private void OnEnable()
     {
+        playerStats.OnReset();
+        container.SetCanvasState(true);
         currentList = playerStats.counterState;
         currentGachaList = posiblesGachaList[currentList];
         wishButton.onClick.AddListener(TryWishSummon);
@@ -54,21 +62,23 @@ public class GachaController : MonoBehaviour
         goBackToWishesAfterGacha.onClick.AddListener(GoBackToWishScreen);
         onLegendaryDropped.AddListener(LegendaryDropped);
         _wishBannerController.SetBanner(currentGachaList);
+        firstTimeLegendary = false;
         SetCanvasState(wishBuyScreen, true);
         SetCanvasState(buyPromptScreen, false);
         SetCanvasState(showGachaSummon, false);
         SetCanvasState(showAllSummons, false);
         SetCanvasState(showCreditCard, false);
-        
     }
 
     private void LegendaryDropped()
     {
-       playerStats.counterState++;
+        playerStats.counterState++;
+        firstTimeLegendary = true;
     }
 
     private void OnDisable()
     {
+        container.SetCanvasState(false);
         wishButton.onClick.RemoveListener(TryWishSummon);
         buyButton.onClick.RemoveListener(ActivateCreditCardGame);
         goBackToWishes.onClick.RemoveListener(HideBuyPrompt);
@@ -79,7 +89,7 @@ public class GachaController : MonoBehaviour
 
     private void TryWishSummon()
     {
-        if (playerStats.money == 5)
+        if (playerStats.money >= 5)
         {
             playerStats.money -= 5;
             textMesh.text = "Wishes:" + playerStats.money;
@@ -100,33 +110,36 @@ public class GachaController : MonoBehaviour
     {
         SetCanvasState(buyPromptScreen, false);
     }
+
     private void ActivateCreditCardGame()
     {
         HideBuyPrompt();
-        SetCanvasState(showCreditCard,true);
+        SetCanvasState(showCreditCard, true);
         creditCardGame.enabled = true;
         creditCardGame.onCardApproved.AddListener(DeactivateCreditCard);
     }
+
     private void DeactivateCreditCard()
     {
         playerStats.money += 5;
         textMesh.text = "Wishes:" + playerStats.money;
         creditCardGame.enabled = false;
-        SetCanvasState(showCreditCard,false);
+        SetCanvasState(showCreditCard, false);
         creditCardGame.onCardApproved.RemoveListener(DeactivateCreditCard);
     }
 
     private void SummonCharacter()
     {
-        SetCanvasState(wishBuyScreen,false);
+        SetCanvasState(wishBuyScreen, false);
+        onSummonSound.Invoke();
         animator.SetTrigger(Summon);
-        Invoke(nameof(ChangeToCharacterShowCase),0.8f);
+        Invoke(nameof(ChangeToCharacterShowCase), 0.8f);
     }
 
     private void ChangeToCharacterShowCase()
     {
         GetCharactersList();
-        SetCanvasState(showGachaSummon,true);
+        SetCanvasState(showGachaSummon, true);
         wishCounter = 0;
         TryNextCharacter();
     }
@@ -142,23 +155,24 @@ public class GachaController : MonoBehaviour
     {
         item.enabled = false;
 
-         maxWishesPerRound = gachaDisplay.Count;
+        maxWishesPerRound = gachaDisplay.Count;
         if (wishCounter < maxWishesPerRound)
         {
             animator.SetTrigger(Summon);
             gachaDisplay[wishCounter].SetGachaCharacter(currentWishes[wishCounter]);
             if (currentWishes[wishCounter].rarity == Rarity.keyItem)
             {
-                //TODO: Reproducir Sonido legendaria
-                if (currentWishes[wishCounter].characterName == "ankarameci")
+                onLegendarySound.Invoke();
+                if (currentWishes[wishCounter].characterName == "Ancarameci")
                 {
-                    //TODO: Reproducir que miras bobo
+                    onMessiSound.Invoke();
                 }
             }
             else
             {
-                //TODO: Reproducir Sonido Normal
+                onNormalSound.Invoke();
             }
+
             item.SetItem(currentWishes[wishCounter]);
             item.enabled = true;
             item.StartAnim();
@@ -172,13 +186,14 @@ public class GachaController : MonoBehaviour
 
     private void ShowAllCharacters()
     {
-        SetCanvasState(showGachaSummon,false);
-        SetCanvasState(showAllSummons,true);
+        SetCanvasState(showGachaSummon, false);
+        SetCanvasState(showAllSummons, true);
     }
-    private void GoBackToWishScreen ()
+
+    private void GoBackToWishScreen()
     {
-        SetCanvasState(showAllSummons,false);        
-        SetCanvasState(wishBuyScreen,true);
+        SetCanvasState(showAllSummons, false);
+        SetCanvasState(wishBuyScreen, true);
         if (currentList != playerStats.counterState)
         {
             onStoryContinue.Invoke();
@@ -192,11 +207,12 @@ public class GachaController : MonoBehaviour
         for (int i = 0; i < gachaDisplay.Count; i++)
         {
             currentWishes.Add(currentGachaList.GetRandomCharacterWish());
-            if (currentGachaList.legendaryAlreadyDropped)
+            if (currentGachaList.legendaryAlreadyDropped && !firstTimeLegendary)
             {
                 onLegendaryDropped.Invoke();
             }
         }
+
         currentGachaList.counterUntilLegendary++;
     }
 }

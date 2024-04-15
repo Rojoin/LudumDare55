@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class CheckKeyItem : MonoBehaviour
 {
@@ -9,9 +10,9 @@ public class CheckKeyItem : MonoBehaviour
     [SerializeField] string deniedMessage = "Denied";
     [SerializeField] string aprobedMessage = "Aprobed";
     [SerializeField] string tagAccepted = "Player";
-
     [SerializeField] float showMSGTime = 3f;
-
+    [SerializeField] private SpriteRenderer changeImage;
+    [SerializeField] Sprite approvedSprite;
     public PlayerStatsSO playerStatsSO;
     public int validKey;
 
@@ -38,6 +39,10 @@ public class CheckKeyItem : MonoBehaviour
             {
                 // Mandar dialogo Aprobe
                 boxCollider.enabled = false;
+                if (changeImage != null)
+                {
+                    changeImage.sprite = approvedSprite;
+                }
                 DialogManager.Instance.ShowDialog(aprobedMessage, showMSGTime);
                 OnAprobed.Invoke();
             }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ItemAnim : MonoBehaviour
@@ -19,6 +20,7 @@ public class ItemAnim : MonoBehaviour
     [SerializeField] private Image panelImage;
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] public UnityEvent onSound;
     private Sprite currentSprite;
     private Vector3 originalScale;
 
@@ -76,7 +78,7 @@ public class ItemAnim : MonoBehaviour
     private IEnumerator ItemAnimation()
     {
         item.SetActive(true);
-   
+        onSound.Invoke();
     
         SetBlackColor(itemImage);
 

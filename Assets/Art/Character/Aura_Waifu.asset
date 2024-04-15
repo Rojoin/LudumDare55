@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e251deb7d15a46b7b74b53f0a4439eab, type: 3}
-  m_Name: Marina
+  m_Name: Aura_Waifu
   m_EditorClassIdentifier: 
-  characterName: Marina
-  description: Holding hands ITS A LOT FOR ME (T_T)
-  image: {fileID: 21300000, guid: 52076dd7fb3e1f241aa9dad1e6a1536e, type: 3}
+  characterName: Aura
+  description: Your mother wouldnt approved me, but you can call me Mommy
+  image: {fileID: 21300000, guid: bffc2bc195a9b394bacb8d08f8c5a488, type: 3}
   rarity: 10
-  cumulativePercentage: 0.23809524
+  cumulativePercentage: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sanic
   m_EditorClassIdentifier: 
   characterName: Sanic
-  description: You are to slow
+  description: You are too fast
   image: {fileID: 21300000, guid: bcecbcc453052b343aa44a22369506ac, type: 3}
   rarity: 10
-  cumulativePercentage: 1
+  cumulativePercentage: 0.23809524

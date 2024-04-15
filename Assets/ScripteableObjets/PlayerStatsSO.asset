@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bc348f45dd46839d35c89b3df72324, type: 3}
   m_Name: PlayerStatsSO
   m_EditorClassIdentifier: 
-  counterState: 0
-  money: 5
+  counterState: 2
+  money: 20
