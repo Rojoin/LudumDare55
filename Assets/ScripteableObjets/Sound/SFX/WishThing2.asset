@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc909e7ea0a5e146808ef494c983935, type: 3}
   m_Name: WishThing2
   m_EditorClassIdentifier: 
-  keyCode: WichThing
-  clip: {fileID: 8300000, guid: 25b8bc8412f499948a5f530f4ea6dd0b, type: 3}
+  keyCode: WichThing2
+  clip: {fileID: 8300000, guid: 766841eb9c42baf4d8a866a8cfc8cea2, type: 3}
   priority: 128
   pitch: 1
   volume: 1
