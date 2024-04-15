@@ -35,6 +35,7 @@ public class ButtonsAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [SerializeField] private TextMeshProUGUI textToHighlight;
     [SerializeField] private Color textColorHighlight;
+    [SerializeField] private Color originalTextHighlightColor;
 
     private void Awake()
     {
@@ -59,6 +60,10 @@ public class ButtonsAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             originalColor = buttonImage.color;
         }
 
+        if (textHighlight)
+        {
+            originalTextHighlightColor = textToHighlight.color;
+        }
         OnMouseExitButton();
     }
     private void OnEnable()
@@ -128,8 +133,8 @@ public class ButtonsAnim : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         //if (enableObject)
         //    objectToEnable.SetActive(false);
 
-        //if (textHighlight)
-        //    textToHighlight.color = colorNormal;
+        if (textHighlight)
+            textToHighlight.color = originalTextHighlightColor;
     }
 
     private void ChangeScale()

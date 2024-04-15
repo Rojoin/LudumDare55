@@ -72,7 +72,7 @@ private GachaCharacterSO GetRandomCommonCharacterSO()
         }
         else
         {
-            randomNum = UnityEngine.Random.value;
+            randomNum = Random.value;
         }
 
         Debug.Log(randomNum);
@@ -84,29 +84,5 @@ private GachaCharacterSO GetRandomCommonCharacterSO()
         }
 
         return GetRandomCommonCharacterSO();
-        
-        return randomNum == 1 ? GetLegendaryChar() : GetRandomCommonCharacterSO();
-        foreach (var gachaCharacterSo in charactersInRotation)
-        {
-            if (randomNum <= gachaCharacterSo.cumulativePercentage)
-            {
-                if (gachaCharacterSo.rarity == Rarity.keyItem)
-                {
-                    if (!legendaryAlreadyDropped)
-                    {
-                        legendaryAlreadyDropped = true;
-                        return gachaCharacterSo;
-                    }
-                    else
-                    {
-                        return charactersInRotation[0];
-                    }
-                }
-
-                return gachaCharacterSo;
-            }
-        }
-
-        return charactersInRotation[0];
     }
 }
