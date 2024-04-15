@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum SoundType
@@ -23,8 +24,32 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     public void PlayMusicGame() => inGameMusic.Play();
     public void StopMusicGame() => inGameMusic.Stop();
 
-    public void SetMusicMenu(AudioClip newMusicMenu) => musicMenu.clip = newMusicMenu;
-    public void SetMusicInGame(AudioClip newMusicInGame) => inGameMusic.clip = newMusicInGame;
+    public void SetMusicMenu(string key)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key && soundList[i].type == SoundType.Music)
+            {
+                musicMenu.clip = soundList[i].clip;
+                return;
+            }
+        }
+
+        Debug.LogError($"No se encontro {key} en la lista o no pertenece a Tipo Musica");
+    }
+    public void SetMusicInGame(string key)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key && soundList[i].type == SoundType.Music)
+            {
+                inGameMusic.clip = soundList[i].clip;
+                return;
+            }
+        }
+
+        Debug.LogError($"No se encontro {key} en la lista o no pertenece a Tipo Musica");
+    }
 
     public void PlaySound(string key)
     {
@@ -171,6 +196,19 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         musicVolume = newVol;
     }
 
+    public AudioClip GetClip(string key)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key)
+            {    
+                return soundList[i].clip;
+            }
+        }
+
+        Debug.LogError($"No se encontro {key} en la lista.");
+        return null;
+    }
     public float GetActualSFXVolume()
     {
         return sfxVolume;

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af5185f6c5c64a7486042d1065db7c1d, type: 3}
+  m_Name: List_Tronco
+  m_EditorClassIdentifier: 
+  textOfBanner: The most useless log
+  charactersInRotation:
+  - {fileID: 11400000, guid: 00892ac9ce7929945888c319cf94603d, type: 2}
+  - {fileID: 11400000, guid: a05d232b7a46a594783b6e44e315f984, type: 2}
+  - {fileID: 11400000, guid: 3849892826b428b4fa43695a5764f4e1, type: 2}
+  - {fileID: 11400000, guid: cdd949c667a7df542a243e9822c240c3, type: 2}
+  - {fileID: 11400000, guid: 21d05e1369e67084c9ef7c7163a709a4, type: 2}
+  counterUntilLegendary: 0
+  MaxWishesBeforeLegendary: 3
+  legendaryAlreadyDropped: 0

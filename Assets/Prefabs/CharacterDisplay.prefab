@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 331.8, y: 311.9}
+  m_SizeDelta: {x: 331.8, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4544777486254618743
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 44d552b28f9f67149b7548283866b258, type: 3}
-  m_Type: 0
+  m_Type: 2
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2.1
 --- !u!1 &7307482236496462781
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ RectTransform:
   m_GameObject: {fileID: 7307482236496462781}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.82, y: 2.82, z: 2.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5052284880052795482}
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 331.8, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4789298913073264292
 CanvasRenderer:
@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 7413860393728236017}
   - component: {fileID: 8755366757564015234}
   - component: {fileID: 7662641996299156774}
+  - component: {fileID: 1751902383406749650}
   m_Layer: 5
   m_Name: CharacterDisplay
   m_TagString: Untagged
@@ -241,6 +242,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentChar: {fileID: 11400000, guid: 4237c8d7b163b194a9a910885f0afc48, type: 2}
   _image: {fileID: 448410448896861976}
+--- !u!114 &1751902383406749650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8299174254973251998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56cd39617e110848b8ae24779061a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSpeed: 3
+  scaleLimit: 1.2
+  modifyColor: 0
+  buttonImage: {fileID: 0}
+  clickedHighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  modifyImage: 0
+  baseImageIsTransparent: 0
+  imageDefault: {fileID: 0}
+  imageHighlighted: {fileID: 0}
+  currentImage: {fileID: 0}
+  textHighlight: 0
+  textToHighlight: {fileID: 0}
+  textColorHighlight: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8554883563874557096
 GameObject:
   m_ObjectHideFlags: 0
