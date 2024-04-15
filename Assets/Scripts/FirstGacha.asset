@@ -19,5 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6f39b33809854bb4e9abfab07aa703b3, type: 2}
   - {fileID: 11400000, guid: ce05fd3ec6fd0b7428d8b021cbd113c5, type: 2}
   - {fileID: 11400000, guid: 3d1e058974223764c98b4388a5cf7cb7, type: 2}
+  counterUntilLegendary: 4
   MaxWishesBeforeLegendary: 3
   legendaryAlreadyDropped: 1

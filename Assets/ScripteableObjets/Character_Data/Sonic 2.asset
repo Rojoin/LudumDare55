@@ -15,5 +15,5 @@ MonoBehaviour:
   characterName: lisa
   description: b
   image: {fileID: 21300000, guid: 5f34c7ff796029c4bb092c57cd4df04f, type: 3}
-  rarity: 1
-  cumulativePercentage: 0.5
+  rarity: 10
+  cumulativePercentage: 0.23809524

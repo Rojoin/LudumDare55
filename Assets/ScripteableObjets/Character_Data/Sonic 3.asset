@@ -15,5 +15,5 @@ MonoBehaviour:
   characterName: Supreme
   description: legal
   image: {fileID: 21300000, guid: 5251800b5c7b8b84d9345b947ade398f, type: 3}
-  rarity: 1
-  cumulativePercentage: 0.6666667
+  rarity: 10
+  cumulativePercentage: 0.23809524
