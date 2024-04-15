@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Aura
   description: Your mother wouldnt approved me, but you can call me Mommy
-  image: {fileID: 21300000, guid: 406cb7ad427d28145818fc74e9096eee, type: 3}
+  image: {fileID: 21300000, guid: bffc2bc195a9b394bacb8d08f8c5a488, type: 3}
   rarity: 10
   cumulativePercentage: 1

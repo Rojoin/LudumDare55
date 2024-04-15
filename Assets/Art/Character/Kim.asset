@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e251deb7d15a46b7b74b53f0a4439eab, type: 3}
   m_Name: Kim
   m_EditorClassIdentifier: 
-  characterName: Beba
+  characterName: Kim
   description: Someone saw Aura ?
   image: {fileID: 21300000, guid: c0be79f49210b55448d5702416b39985, type: 3}
   rarity: 10

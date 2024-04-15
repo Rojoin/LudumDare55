@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perro
   m_EditorClassIdentifier: 
   characterName: Doggy
-  description: Who is a good boy ?
+  description: 'I am the good boy '
   image: {fileID: 21300000, guid: b7515374cc3fa5b46b863da5afa50d07, type: 3}
   rarity: 10
   cumulativePercentage: 1

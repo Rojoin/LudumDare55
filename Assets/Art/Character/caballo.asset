@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e251deb7d15a46b7b74b53f0a4439eab, type: 3}
   m_Name: caballo
   m_EditorClassIdentifier: 
-  characterName: caballo
-  description: a special horse from the mountains
+  characterName: Horse
+  description: A special horse from the mountains
   image: {fileID: 21300000, guid: 466edc5bc01318a48a0071f18069c089, type: 3}
   rarity: 10
   cumulativePercentage: 1

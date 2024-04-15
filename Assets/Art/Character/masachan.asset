@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e251deb7d15a46b7b74b53f0a4439eab, type: 3}
   m_Name: masachan
   m_EditorClassIdentifier: 
-  characterName: masachan
+  characterName: Masachan
   description: no UwU for you if you bother me
   image: {fileID: 21300000, guid: 7679f3c0cfde3b54c8f799ec7898d10b, type: 3}
   rarity: 10
