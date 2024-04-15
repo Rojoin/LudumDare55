@@ -21,7 +21,7 @@ public class WishBannerController : MonoBehaviour
 
         wishName.text = gachaListSo.textOfBanner;
         keyItemCharacterImage.sprite = legendaryChar.image;
-        charName.text = legendaryChar.name;
-        wishName.text = legendaryChar.description;
+        charName.text = legendaryChar.characterName;
+        charDescription.text = legendaryChar.description;
     }
 }

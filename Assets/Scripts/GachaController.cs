@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CreditCardMinigame;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -12,6 +13,7 @@ public class GachaController : MonoBehaviour
     public PlayerStatsSO playerStats;
     public ItemAnim item;
     public CreditCard creditCardGame;
+    public Animator animator;
     [SerializeField] private WishBannerController _wishBannerController;
     [Header("Buttons")]
     public Button wishButton;
@@ -34,8 +36,10 @@ public class GachaController : MonoBehaviour
     public List<GachaCharacterDisplay> gachaDisplay;
     private GachaListSO currentGachaList;
     private List<GachaCharacterSO> currentWishes = new List<GachaCharacterSO>();
+    [SerializeField]  private TextMeshProUGUI textMesh;
     [Header("Events")]
     public UnityEvent onLegendaryDropped;
+    private static readonly int Summon = Animator.StringToHash("Summon");
 
     private void OnEnable()
     {
@@ -45,7 +49,7 @@ public class GachaController : MonoBehaviour
         goBackToWishes.onClick.AddListener(HideBuyPrompt);
         nextScreen.onClick.AddListener(TryNextCharacter);
         goBackToWishesAfterGacha.onClick.AddListener(GoBackToWishScreen);
-        //_wishBannerController.SetBanner(currentGachaList);
+        _wishBannerController.SetBanner(currentGachaList);
         SetCanvasState(wishBuyScreen, true);
         SetCanvasState(buyPromptScreen, false);
         SetCanvasState(showGachaSummon, false);
@@ -67,6 +71,7 @@ public class GachaController : MonoBehaviour
         if (playerStats.money == 5)
         {
             playerStats.money -= 5;
+            textMesh.text = "Wishes:" + playerStats.money;
             SummonCharacter();
         }
         else
@@ -94,12 +99,20 @@ public class GachaController : MonoBehaviour
     private void DeactivateCreditCard()
     {
         playerStats.money += 5;
+        textMesh.text = "Wishes:" + playerStats.money;
         creditCardGame.enabled = false;
         SetCanvasState(showCreditCard,false);
         creditCardGame.onCardApproved.RemoveListener(DeactivateCreditCard);
     }
 
     private void SummonCharacter()
+    {
+        SetCanvasState(wishBuyScreen,false);
+        animator.SetTrigger(Summon);
+        Invoke(nameof(ChangeToCharacterShowCase),0.8f);
+    }
+
+    private void ChangeToCharacterShowCase()
     {
         GetCharactersList();
         SetCanvasState(showGachaSummon,true);
@@ -121,8 +134,9 @@ public class GachaController : MonoBehaviour
          maxWishesPerRound = gachaDisplay.Count;
         if (counter < maxWishesPerRound)
         {
+            animator.SetTrigger(Summon);
             gachaDisplay[counter].SetGachaCharacter(currentWishes[counter]);
-            item.SetSprite(currentWishes[counter].image);
+            item.SetItem(currentWishes[counter]);
             item.enabled = true;
             item.StartAnim();
             counter++;
@@ -140,7 +154,8 @@ public class GachaController : MonoBehaviour
     }
     private void GoBackToWishScreen ()
     {
-        SetCanvasState(showAllSummons,false);
+        SetCanvasState(showAllSummons,false);        
+        SetCanvasState(wishBuyScreen,true); 
     }
 
 
@@ -155,11 +170,12 @@ public class GachaController : MonoBehaviour
                 onLegendaryDropped.Invoke();
             }
         }
+        currentGachaList.counterUntilLegendary++;
     }
 }
 
 public enum Rarity
 {
-    normal = 1,
-    keyItem = 1
+    normal = 10,
+    keyItem = 2
 }

@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
+
 
 [CreateAssetMenu(menuName = "Create GachaListSO", fileName = "GachaListSO", order = 0)]
 public class GachaListSO : ScriptableObject
 {
     public string textOfBanner;
     public List<GachaCharacterSO> charactersInRotation;
-    private int counterUntilLegendary = 0;
+    public int counterUntilLegendary = 0;
     public int MaxWishesBeforeLegendary = 3;
     public bool legendaryAlreadyDropped = false;
+    private List<GachaCharacterSO> common = new List<GachaCharacterSO>();
 
     public GachaCharacterSO GetLegendaryChar()
     {
@@ -24,7 +27,25 @@ public class GachaListSO : ScriptableObject
 
         return charactersInRotation[0];
     }
-    
+private GachaCharacterSO GetRandomCommonCharacterSO()
+{
+    foreach (GachaCharacterSO characterSo in charactersInRotation)
+    {
+        if (characterSo.rarity != Rarity.keyItem)
+        {
+            common.Add(characterSo);
+        }
+    }
+
+    int random = Random.Range(0,common.Count);
+
+    return common[random];
+}
+    private void OnDisable()
+    {
+        counterUntilLegendary = 0;
+        legendaryAlreadyDropped = false;
+    }
 
     public GachaCharacterSO GetRandomCharacterWish()
     {
@@ -40,11 +61,31 @@ public class GachaListSO : ScriptableObject
         foreach (GachaCharacterSO character in charactersInRotation)
         {
             cumulative += character.chancePercentage / totalProbability;
-            character.cumulativePercentage = cumulative;
+            character.cumulativePercentage = character.chancePercentage / totalProbability;
         }
 
-        float randomNum = Random.value;
+        float randomNum;
+        if (counterUntilLegendary >= MaxWishesBeforeLegendary && !legendaryAlreadyDropped)
+        {
+            randomNum = 1;
+            Debug.Log("Secure Legendary");
+        }
+        else
+        {
+            randomNum = UnityEngine.Random.value;
+        }
 
+        Debug.Log(randomNum);
+
+        if (Math.Abs(randomNum - 1) < 0.0001f & !legendaryAlreadyDropped)
+        {
+            legendaryAlreadyDropped = true;
+            return GetLegendaryChar();
+        }
+
+        return GetRandomCommonCharacterSO();
+        
+        return randomNum == 1 ? GetLegendaryChar() : GetRandomCommonCharacterSO();
         foreach (var gachaCharacterSo in charactersInRotation)
         {
             if (randomNum <= gachaCharacterSo.cumulativePercentage)
@@ -61,6 +102,8 @@ public class GachaListSO : ScriptableObject
                         return charactersInRotation[0];
                     }
                 }
+
+                return gachaCharacterSo;
             }
         }
 

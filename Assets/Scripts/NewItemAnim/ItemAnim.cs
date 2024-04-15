@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,11 +17,14 @@ public class ItemAnim : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private GameObject panel;
     [SerializeField] private Image panelImage;
+    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI description;
     private Sprite currentSprite;
     private Vector3 originalScale;
 
     void OnEnable()
     {
+        
         itemImage = item.GetComponent<Image>();
         itemImage.sprite = currentSprite;
         panelImage = panel.GetComponent<Image>();
@@ -34,9 +38,11 @@ public class ItemAnim : MonoBehaviour
     {
         StartCoroutine(CharacterReveal());
     }
-    public void SetSprite(Sprite sprite)
+    public void SetItem(GachaCharacterSO gacha)
     {
-        currentSprite = sprite;
+        currentSprite = gacha.image;
+        name.text = gacha.characterName;
+        description.text = gacha.description;
     }
     private void OnDisable()
     {
@@ -50,6 +56,10 @@ public class ItemAnim : MonoBehaviour
     }
     private IEnumerator PanelFadeIn()
     {
+        item.SetActive(false);
+        name.gameObject.SetActive(false);
+        description.gameObject.SetActive(false);
+        item.SetActive(false);
         panel.SetActive(true);
         Color panelOpaque = panelImage.color;
         panelImage.color = Transparent(panelImage.color);
@@ -66,6 +76,8 @@ public class ItemAnim : MonoBehaviour
     private IEnumerator ItemAnimation()
     {
         item.SetActive(true);
+   
+    
         SetBlackColor(itemImage);
 
         item.transform.localScale *= initialScaleMultiplier;
@@ -79,7 +91,7 @@ public class ItemAnim : MonoBehaviour
             panelImage.color = Color.Lerp(panelImage.color, Transparent(panelImage.color), timer / itemInDuration);
             yield return null;
         }
-
+        name.gameObject.SetActive(true);
         timer = 0;
         startTime = Time.time;
         while (timer < itemGrowDuration)
@@ -94,6 +106,7 @@ public class ItemAnim : MonoBehaviour
             itemImage.color = Color.Lerp(Color.black, Color.white, timer / itemGrowDuration);
             yield return null;
         }
+        description.gameObject.SetActive(true);
         SetWhiteColor(itemImage);
     }
 
