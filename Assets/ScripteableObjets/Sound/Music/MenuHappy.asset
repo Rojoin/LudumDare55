@@ -20,5 +20,5 @@ MonoBehaviour:
   spatialBlend: 0
   minDistance: 0.5
   maxDistance: 3
-  loop: 0
+  loop: 1
   type: 0
