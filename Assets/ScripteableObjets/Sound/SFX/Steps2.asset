@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steps2
   m_EditorClassIdentifier: 
   keyCode: Steps2
-  clip: {fileID: 8300000, guid: 138f74faccd4f3246b95db81f081adcb, type: 3}
+  clip: {fileID: 8300000, guid: af4c3078fe55a7a4d965bfdabcf082e8, type: 3}
   priority: 128
   pitch: 1
   volume: 1

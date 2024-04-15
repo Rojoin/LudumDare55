@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MenuHappy
   m_EditorClassIdentifier: 
   keyCode: MenuHappy
-  clip: {fileID: 8300000, guid: 8b17885ec9ffd3847b341996a650c8bd, type: 3}
+  clip: {fileID: 8300000, guid: 075aba133be991f45adcd5dd1e0bf72e, type: 3}
   priority: 128
   pitch: 1
   volume: 1

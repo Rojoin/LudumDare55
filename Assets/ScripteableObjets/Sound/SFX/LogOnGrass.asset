@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LogOnGrass
   m_EditorClassIdentifier: 
   keyCode: LogOnGrass
-  clip: {fileID: 8300000, guid: 3289fdbf14f63f542ba7c16456d1cee0, type: 3}
+  clip: {fileID: 8300000, guid: be7ca80af22f3114080865d9f08ca660, type: 3}
   priority: 128
   pitch: 1
   volume: 1

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dc909e7ea0a5e146808ef494c983935, type: 3}
-  m_Name: HappyOgre
+  m_Name: SummonCharactersShowcase
   m_EditorClassIdentifier: 
-  keyCode: HappyOgre
-  clip: {fileID: 8300000, guid: e433e4659dd72b34689d972b9e0d6188, type: 3}
+  keyCode: SummonCharactersShowcase
+  clip: {fileID: 8300000, guid: dddaf59c0e48dc34d866e4c5b6d0310d, type: 3}
   priority: 128
   pitch: 1
   volume: 1
