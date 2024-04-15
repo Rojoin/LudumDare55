@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dc909e7ea0a5e146808ef494c983935, type: 3}
-  m_Name: MagicEffect3
+  m_Name: GrowlOgre2
   m_EditorClassIdentifier: 
-  keyCode: MagicEffect3
-  clip: {fileID: 8300000, guid: 232a85aa87b86ad48930b3d9eae6ce5f, type: 3}
+  keyCode: GrowlOgre1
+  clip: {fileID: 8300000, guid: e7a499b917803a04bacac5c47983c694, type: 3}
   priority: 128
   pitch: 1
-  volume: 0.203
-  spatialBlend: 1
+  volume: 1
+  spatialBlend: 0
   minDistance: 0.5
   maxDistance: 3
-  loop: 1
+  loop: 0
   type: 1

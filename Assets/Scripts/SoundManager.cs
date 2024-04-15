@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum SoundType
@@ -23,80 +24,111 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
     public void PlayMusicGame() => inGameMusic.Play();
     public void StopMusicGame() => inGameMusic.Stop();
 
-    public void SetMusicMenu(AudioClip newMusicMenu) => musicMenu.clip = newMusicMenu;
-    public void SetMusicInGame(AudioClip newMusicInGame) => inGameMusic.clip = newMusicInGame;
+    public void SetMusicMenu(string key)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key && soundList[i].type == SoundType.Music)
+            {
+                musicMenu.clip = soundList[i].clip;
+                return;
+            }
+        }
 
-    //public void PlaySound(string key)
-    //{
-    //    SoundSO sound = null;
-    //    for (int i = 0; i < soundList.Length; i++)
-    //    {
-    //        if (soundList[i].keyCode == key)
-    //        {
-    //            sound = soundList[i];
-    //            break;
-    //        }
-    //    }
-    //    for (int i = 0; i < audioSourcesList.Count; i++)
-    //    {
-    //        if (!audioSourcesList[i].isPlaying)
-    //        {
-    //            audioSourcesList[i].clip = sound.clip;
-    //            audioSourcesList[i].spatialBlend = sound.spatialBlend;
-    //            audioSourcesList[i].volume = sound.volume;
-    //            audioSourcesList[i].pitch = sound.pitch;
-    //            audioSourcesList[i].priority = sound.priority;
+        Debug.LogError($"No se encontro {key} en la lista o no pertenece a Tipo Musica");
+    }
+    public void SetMusicInGame(string key)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key && soundList[i].type == SoundType.Music)
+            {
+                inGameMusic.clip = soundList[i].clip;
+                return;
+            }
+        }
 
-    //            audioSourcesList[i].minDistance = sound.minDistance;
-    //            audioSourcesList[i].maxDistance = sound.maxDistance;
+        Debug.LogError($"No se encontro {key} en la lista o no pertenece a Tipo Musica");
+    }
 
-    //            audioSourcesList[i].loop = sound.loop;
+    public void PlaySound(string key)
+    {
+        SoundSO sound = null;
 
-    //            audioSourcesList[i].Play();
-    //            return;
-    //        }
-    //    }
-        
-    //    if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySound]Error: \"{key}\" could not be found!");
-    //    else
-    //    {
-    //        AudioSource newaudio = gameObject.AddComponent<AudioSource>();
-    //        audioSourcesList.Add(newaudio);
-    //        newaudio.clip = sound.clip;
-    //        newaudio.spatialBlend = sound.spatialBlend;
-    //        newaudio.volume = sound.volume;
-    //        newaudio.pitch = sound.pitch;
-    //        newaudio.priority = sound.priority;
 
-    //        newaudio.minDistance = sound.minDistance;
-    //        newaudio.maxDistance = sound.maxDistance;
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key)
+            {
+                sound = soundList[i];
+                break;
+            }
+        }
 
-    //        newaudio.loop = sound.loop;
+        audioSourcesList[0].PlayOneShot(sound.clip);
 
-    //        newaudio.Play();
-    //    }
-    //}
-    //public void StopSound(string key)
-    //{
-    //    SoundSO sound = null;
-    //    for (int i = 0; i < soundList.Length; i++)
-    //    {
-    //        if (soundList[i].keyCode == key)
-    //        {
-    //            sound = soundList[i];
-    //            break;
-    //        }
-    //    }
-    //    for (int i = 0; i < audioSourcesList.Count; i++)
-    //    {
-    //        if (audioSourcesList[i].clip == sound.clip && audioSourcesList[i].isPlaying)
-    //        {
-    //            audioSourcesList[i].Stop();
-    //            return;
-    //        }
-    //    }
-    //    if (sound == null) Debug.LogError($"[{gameObject.name}.StopSound]Error: \"{key}\" could not be found!");
-    //}
+        if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySound]Error: \"{key}\" could not be found!");
+
+        //for (int i = 0; i < audioSourcesList.Count; i++)
+        //{
+        //    if (!audioSourcesList[i].isPlaying)
+        //    {
+        //        audioSourcesList[i].clip = sound.clip;
+        //        audioSourcesList[i].spatialBlend = sound.spatialBlend;
+        //        audioSourcesList[i].volume = sound.volume;
+        //        audioSourcesList[i].pitch = sound.pitch;
+        //        audioSourcesList[i].priority = sound.priority;
+
+        //        audioSourcesList[i].minDistance = sound.minDistance;
+        //        audioSourcesList[i].maxDistance = sound.maxDistance;
+
+        //        audioSourcesList[i].loop = sound.loop;
+
+        //        audioSourcesList[i].Play();
+        //        return;
+        //    }
+        //}
+
+        //if (sound == null) Debug.LogError($"[{gameObject.name}.PlaySound]Error: \"{key}\" could not be found!");
+        //else
+        //{
+        //    AudioSource newaudio = gameObject.AddComponent<AudioSource>();
+        //    audioSourcesList.Add(newaudio);
+        //    newaudio.clip = sound.clip;
+        //    newaudio.spatialBlend = sound.spatialBlend;
+        //    newaudio.volume = sound.volume;
+        //    newaudio.pitch = sound.pitch;
+        //    newaudio.priority = sound.priority;
+
+        //    newaudio.minDistance = sound.minDistance;
+        //    newaudio.maxDistance = sound.maxDistance;
+
+        //    newaudio.loop = sound.loop;
+
+        //    newaudio.Play();
+        //}
+    }
+    public void StopSound(string key)
+    {
+        SoundSO sound = null;
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key)
+            {
+                sound = soundList[i];
+                break;
+            }
+        }
+        for (int i = 0; i < audioSourcesList.Count; i++)
+        {
+            if (audioSourcesList[i].clip == sound.clip && audioSourcesList[i].isPlaying)
+            {
+                audioSourcesList[i].Stop();
+                return;
+            }
+        }
+        if (sound == null) Debug.LogError($"[{gameObject.name}.StopSound]Error: \"{key}\" could not be found!");
+    }
 
     public void SetSound(string key, AudioSource _as)
     {
@@ -164,6 +196,19 @@ public class SoundManager : MonoBehaviourSingleton<SoundManager>
         musicVolume = newVol;
     }
 
+    public AudioClip GetClip(string key)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[i].keyCode == key)
+            {    
+                return soundList[i].clip;
+            }
+        }
+
+        Debug.LogError($"No se encontro {key} en la lista.");
+        return null;
+    }
     public float GetActualSFXVolume()
     {
         return sfxVolume;
