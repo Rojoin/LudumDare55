@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     private string lateralInputAxis = "Horizontal";
     [SerializeField][Range(5.0f, 100.0f)] private float speed;
     float x;
+    [SerializeField] private Animator animator;
+    public bool isLookingRight = true;
+    [SerializeField] private Transform pivot;
+
     void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
@@ -24,6 +28,15 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         x = Input.GetAxis(lateralInputAxis);
+
+        if ((x < 0 && isLookingRight) || (x > 0 && !isLookingRight))
+            FlipHorizontal();
+
+        if (Input.GetKeyDown(KeyCode.B))
+            SetTiredness(true);
+        
+        if (Input.GetKeyDown(KeyCode.V))
+            SetTiredness(false);
     }
 
     private void FixedUpdate()
@@ -34,7 +47,27 @@ public class PlayerController : MonoBehaviour
 
         if (moveVector != Vector2.zero)
         {
+            animator.SetBool("isWalking", true);
             Debug.Log("moving");
         }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+    }
+
+    public void SetTiredness(bool isTired)
+    {
+        animator.SetBool("isTired", isTired);
+    }
+
+    public void FlipHorizontal()
+    {
+        if (isLookingRight)
+            isLookingRight = false;
+        else
+            isLookingRight = true;
+
+        pivot.Rotate(0, 180, 0);
     }
 }
