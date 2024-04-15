@@ -13,23 +13,61 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerRB;
     private string lateralInputAxis = "Horizontal";
-    private Transform playerTransform;
-    [SerializeField]    [Range(5.0f, 100.0f)]   private float speed;
+    [SerializeField][Range(5.0f, 100.0f)] private float speed;
+    float x;
+    [SerializeField] private Animator animator;
+    public bool isLookingRight = true;
+    [SerializeField] private Transform pivot;
 
     void Awake()
     {
         playerCollider = GetComponent<BoxCollider2D>();
-        playerTransform = GetComponent<Transform>();
         playerRB = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        moveVector = new Vector2(Input.GetAxisRaw(lateralInputAxis), 0);
-        playerTransform.Translate(moveVector * speed * Time.deltaTime, Space.World);
+        x = Input.GetAxis(lateralInputAxis);
+
+        if ((x < 0 && isLookingRight) || (x > 0 && !isLookingRight))
+            FlipHorizontal();
+
+        if (Input.GetKeyDown(KeyCode.B))
+            SetTiredness(true);
+        
+        if (Input.GetKeyDown(KeyCode.V))
+            SetTiredness(false);
+    }
+
+    private void FixedUpdate()
+    {
+        moveVector = new Vector2(x * speed * Time.deltaTime, 0);
+        // playerRB.MovePosition(playerRB.position + moveVector * Time.fixedDeltaTime);
+        playerRB.AddForce(moveVector, ForceMode2D.Impulse);
+
         if (moveVector != Vector2.zero)
         {
+            animator.SetBool("isWalking", true);
             Debug.Log("moving");
-        }        
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+    }
+
+    public void SetTiredness(bool isTired)
+    {
+        animator.SetBool("isTired", isTired);
+    }
+
+    public void FlipHorizontal()
+    {
+        if (isLookingRight)
+            isLookingRight = false;
+        else
+            isLookingRight = true;
+
+        pivot.Rotate(0, 180, 0);
     }
 }
