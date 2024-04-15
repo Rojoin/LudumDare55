@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e251deb7d15a46b7b74b53f0a4439eab, type: 3}
-  m_Name: Aura
+  m_Name: tigre tonio
   m_EditorClassIdentifier: 
-  characterName: Aura
+  characterName: tigre tonio
   description: Your mother wouldnt approved me, but you can call me Mommy
-  image: {fileID: 21300000, guid: 406cb7ad427d28145818fc74e9096eee, type: 3}
+  image: {fileID: 21300000, guid: af9aa551be6b8194cb92d1bbff93174f, type: 3}
   rarity: 1
   cumulativePercentage: 1
