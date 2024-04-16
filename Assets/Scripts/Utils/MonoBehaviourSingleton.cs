@@ -25,7 +25,10 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSi
     private void Awake()
     {
         if (instance != null)
+        {
+            Debug.Log("Destroyed");
             Destroy(this.gameObject);
+        }
 
         instance = this;
 
